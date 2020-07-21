@@ -1,0 +1,50 @@
+#strtod function
+
+Convert string to double
+Parses the C-string str interpreting its content as a floating point number (according to the current locale) and returns its value as a double. 
+If endptr is not a null pointer, the function also sets the value of endptr to point to the first character after the number.
+
+double strtod (const char* str, char** endptr);
+
+Availble in stdlib.h
+
+/* strtod example */
+#include <stdio.h>      /* printf, NULL */
+#include <stdlib.h>     /* strtod */
+
+int main ()
+{
+  char szOrbits[] = "365.24 29.53";
+  char* pEnd;
+  double d1, d2;
+  d1 = strtod (szOrbits, &pEnd);
+  d2 = strtod (pEnd, NULL);
+  printf ("The moon completes %.2f orbits per Earth year.\n", d1/d2);
+  return 0;
+}
+
+Link: http://www.cplusplus.com/reference/cstdlib/strtod/
+
+2// What does static double const means?
+
+Link: https://stackoverflow.com/a/177892/9380247
+https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage
+
+Static is storage specifier and Const is type qualifier that is a keyword applied to immediate left instance (here, double). Const creates a read only variable.
+Now, by declaring that it is static:
+
+static const int foo = 42;
+
+The compiler can do its usual optimization, 
+but it can also say "hey, nobody outside this compilation unit can see foo and I know it's always 42 so there is no need to allocate any space for it."
+
+const int foo = 42;
+
+You're not defining a constant, but creating a read-only variable. The compiler is smart enough to use 42 whenever it sees foo,
+but it will also allocate space in the initialized data area for it. This is done because, as defined, foo has external linkage.
+
+
+
+
+
+
